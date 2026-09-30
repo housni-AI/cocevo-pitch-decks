@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cocevo — Pitch Deck (Cross-Industry, FR)</title>
+<style>
+/* ===========================================
+   VIEWPORT FITTING: MANDATORY BASE STYLES
+   =========================================== */
+
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+    --body-size: clamp(0.8rem, 1.5vw, 1.125rem);
+    --small-size: clamp(0.68rem, 1vw, 0.875rem);
+
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+
+    /* Cocevo brand — extracted live from cocevo.com CSS */
+    --bg: #ffffff;
+    --bg-muted: #f4f7fb;
+    --bg-mint: #eafaf7;
+    --border: #e6eaf0;
+    --ink: #0a1626;
+    --ink-muted: #5b6b7b;
+    --brand: #18cb96;
+    --brand-dark: #0fa97b;
+    --cyan: #5ce1e6;
+    --accent: var(--brand-dark);
+    --bad: #e2685c;
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+    border-top: 1px solid var(--border);
+}
+.slide:first-child { border-top: none; }
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    padding: var(--slide-padding);
+}
+
+.content-wrap {
+    max-width: min(92vw, 1180px);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card, .container, .content-box {
+    max-width: min(90vw, 1000px);
+    max-height: min(80vh, 700px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+img, .image-container {
+    max-width: 100%;
+    max-height: min(50vh, 400px);
+    object-fit: contain;
+}
+
+@media (max-height: 700px) {
+    :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+    }
+}
+
+@media (max-height: 600px) {
+    :root {
+        --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+        --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+        --title-size: clamp(1.1rem, 4vw, 2rem);
+        --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+    }
+
+    .nav-dots, .keyboard-hint, .decorative {
+        display: none;
+    }
+}
+
+@media (max-height: 500px) {
+    :root {
+        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --title-size: clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size: clamp(0.65rem, 1vw, 0.85rem);
+    }
+    /* extra safety net for landscape-phone heights (e.g. 667x375, 896x414) */
+    .flow { gap: 0.3rem; }
+    .flow-row { padding: 0.3rem 0.6rem; gap: 0.4rem; }
+    .arch-cell { padding: 0.5rem 0.7rem; }
+    .arch-cell .val { margin-bottom: 0.15em; }
+    .quote-card { padding: 0.7rem; gap: 0.35rem; }
+    .quote-card blockquote { font-size: 0.85rem; }
+    .compare { gap: 0.5rem; }
+    .compare .opt { padding: 0.6rem 0.8rem; }
+    .opt ul { gap: 0.25rem; }
+    .opt h4 { margin-bottom: 0.35rem; font-size: 1rem; }
+    .split-title { padding-bottom: 0.3rem; margin-bottom: 0.5rem; }
+    .eyebrow { margin-bottom: 0.3rem; }
+    .stat-hero .num { font-size: clamp(2rem, 9vw, 3.5rem); }
+    .stat-hero .num-label { font-size: 0.85rem; }
+    .calc { margin-top: 0.4rem; gap: 0.15rem; }
+    .footnote { margin-top: 0.3rem; }
+    .grid-2 { gap: 0.6rem; }
+    .pipeline .box { padding: 0.5rem 0.7rem; min-width: 110px; }
+    .explain .card { padding: 0.5rem 0.7rem; margin-bottom: 0.4rem; }
+    .converge { gap: 0.3rem; }
+    .converge .path { padding: 0.5rem 0.7rem; }
+    .chips { margin-top: 0.4rem; gap: 0.4rem; }
+    .chip { padding: 0.3em 0.7em; }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+    }
+    .grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+/* ===========================================
+   DARK SLIDE VARIANT
+   =========================================== */
+.slide.dark {
+    --bg: #0a1626;
+    --bg-muted: rgba(255,255,255,0.055);
+    --bg-mint: rgba(24,203,150,0.12);
+    --border: rgba(255,255,255,0.14);
+    --ink: #ffffff;
+    --ink-muted: #9fb0c3;
+    --accent: var(--cyan);
+}
+
+.slide.dark .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    opacity: 0.35;
+    animation: floaty 8s ease-in-out infinite;
+}
+.slide.dark .glow.g1 { width: 40vw; height: 40vw; background: var(--brand); top: -10%; right: -8%; }
+.slide.dark .glow.g2 { width: 30vw; height: 30vw; background: var(--cyan); bottom: -12%; left: -6%; animation-duration: 10s; animation-delay: -3s; }
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-14px) rotate(2deg); }
+}
+
+/* ===========================================
+   TYPOGRAPHY / SHARED COMPONENTS
+   =========================================== */
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: 600;
+    margin-bottom: clamp(0.6rem, 1.6vh, 1rem);
+}
+.eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+h2.headline {
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 clamp(0.6rem, 2vh, 1.2rem) 0;
+}
+em.accent { font-style: normal; color: var(--accent); font-weight: 800; }
+
+p.lede {
+    font-size: var(--body-size);
+    line-height: 1.5;
+    color: var(--ink-muted);
+    max-width: 62ch;
+    margin: 0;
+}
+
+.footnote {
+    font-family: var(--font-mono);
+    font-size: clamp(0.62rem, 0.9vw, 0.75rem);
+    color: var(--ink-muted);
+    opacity: 0.85;
+    margin-top: clamp(0.6rem, 2vh, 1.2rem);
+    max-width: 70ch;
+    line-height: 1.4;
+}
+
+/* split-title chapter header */
+.split-title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    margin-bottom: clamp(1rem, 3vh, 2rem);
+}
+.split-title h3 {
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+.split-title .meta {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+    font-size: var(--small-size);
+    white-space: nowrap;
+    padding-bottom: 0.3em;
+}
+
+/* arch-cells */
+.arch {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+.arch-cell {
+    background: var(--bg);
+    padding: clamp(1rem, 2.2vw, 1.6rem);
+}
+.arch-cell .lbl {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 0.5em;
+}
+.arch-cell .val {
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 0.35em;
+    line-height: 1.2;
+}
+.arch-cell .sub {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    line-height: 1.35;
+}
+
+/* flow rows */
+.flow {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.4vh, 0.8rem);
+}
+.flow-row {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: clamp(0.6rem, 1.4vw, 1rem);
+    padding: clamp(0.6rem, 1.3vh, 0.9rem) clamp(0.8rem, 1.6vw, 1.2rem);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+}
+.flow-row .tag {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    padding: 0.28em 0.7em;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-weight: 700;
+}
+.flow-row .tag.n1 { background: var(--bg-mint); color: var(--brand-dark); }
+.flow-row .tag.n2 { background: rgba(92,225,230,0.18); color: #0e7c80; }
+.flow-row .tag.n3 { background: var(--bg-muted); color: var(--ink-muted); }
+.flow-row .arrow { color: var(--ink-muted); }
+.flow-row .what { font-size: var(--body-size); color: var(--ink); line-height: 1.35; }
+.flow-row .who { font-family: var(--font-mono); font-size: var(--small-size); color: var(--ink-muted); white-space: nowrap; }
+
+@media (max-width: 720px) {
+    .flow-row { grid-template-columns: auto 1fr; row-gap: 0.3rem; }
+    .flow-row .arrow, .flow-row .who { display: none; }
+}
+
+/* chips */
+.chips { display: flex; gap: clamp(0.5rem, 1.6vw, 1rem); flex-wrap: wrap; margin-top: clamp(0.6rem, 1.8vh, 1.1rem); }
+.chip {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.45em 1.1em;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    background: var(--bg-muted);
+}
+.chip strong { color: var(--ink); font-weight: 800; }
+
+/* quote grid */
+.quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+}
+.quote-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+    background: var(--bg-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.quote-card .role {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-dark);
+    font-weight: 700;
+}
+.quote-card blockquote {
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    line-height: 1.42;
+    color: var(--ink);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* stat hero */
+.stat-hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(0.4rem, 1.2vh, 0.8rem); }
+.stat-hero .num {
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--brand), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+.stat-hero .num-label {
+    font-size: var(--h3-size);
+    color: var(--ink-muted);
+    max-width: 40ch;
+    font-weight: 500;
+}
+.stat-hero.hero-anim .num { animation: heroPop 1s cubic-bezier(0.2,0.8,0.2,1) both; }
+@keyframes heroPop { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: clamp(0.8rem, 2vh, 1.2rem);
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    text-align: center;
+}
+.calc strong { color: var(--ink); font-weight: 700; }
+
+/* compare (Option A / B) */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.4rem); }
+.compare .opt {
+    border-radius: 14px;
+    padding: clamp(1.1rem, 2.3vw, 1.6rem);
+    border: 1px solid var(--border);
+}
+.opt.bad { background: rgba(226,104,92,0.08); border-color: rgba(226,104,92,0.35); }
+.opt.good { border-color: var(--brand); background: rgba(24,203,150,0.1); }
+.opt h4 { font-size: var(--h3-size); margin: 0 0 0.7rem 0; font-weight: 800; }
+.opt ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.opt li { font-size: var(--body-size); line-height: 1.35; padding-left: 1.3em; position: relative; color: var(--ink); }
+.opt.bad li::before { content: '✕'; position: absolute; left: 0; color: var(--bad); font-weight: 800; }
+.opt.good li::before { content: '✓'; position: absolute; left: 0; color: var(--brand); font-weight: 800; }
+
+@media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+
+/* pipeline diagram */
+.pipeline { display: flex; align-items: center; justify-content: center; gap: clamp(0.5rem, 2vw, 1.2rem); flex-wrap: wrap; }
+.pipeline .box {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    background: var(--bg-muted);
+    text-align: center;
+    min-width: 150px;
+}
+.pipeline .box .k { font-family: var(--font-mono); font-size: var(--small-size); color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4em; }
+.pipeline .box .v { font-size: clamp(0.9rem, 1.5vw, 1.1rem); font-weight: 800; color: var(--ink); }
+.pipeline .box.highlight { border-color: var(--brand); background: var(--bg-mint); }
+.pipeline .arrow-sep { font-size: 1.4rem; color: var(--ink-muted); }
+
+/* grid-2 mock + reason */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 3vw, 2.5rem); align-items: center; }
+@media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+.explain .card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: clamp(0.9rem, 1.8vw, 1.3rem);
+    background: var(--bg);
+    margin-bottom: 0.7rem;
+}
+.explain .card:last-child { margin-bottom: 0; }
+.explain .card-title { font-weight: 800; font-size: var(--body-size); margin-bottom: 0.35em; color: var(--ink); }
+.explain .card p { font-size: var(--small-size); color: var(--ink-muted); line-height: 1.42; margin: 0; }
+
+/* converge diagram */
+.converge { display: flex; flex-direction: column; align-items: center; gap: clamp(0.6rem, 1.6vh, 1rem); }
+.converge .paths { display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-content: center; flex-wrap: wrap; width: 100%; }
+.converge .path { flex: 1; min-width: 220px; max-width: 340px; border: 1px solid var(--border); border-radius: 14px; padding: clamp(1rem, 2vw, 1.3rem); background: var(--bg-muted); }
+.converge .path .who { font-family: var(--font-mono); font-size: var(--small-size); color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5em; font-weight: 700; }
+.converge .path p { margin: 0; font-size: var(--body-size); color: var(--ink); line-height: 1.4; }
+.converge .arrow-down { font-size: 1.4rem; color: var(--ink-muted); }
+.converge .result { border: 2px solid var(--brand); border-radius: 999px; padding: 0.7rem 1.6rem; background: var(--bg-mint); font-weight: 800; font-size: var(--body-size); color: var(--ink); }
+
+/* callout strip */
+.callout-strip {
+    margin-top: clamp(1rem, 2.5vh, 1.5rem);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: clamp(0.8rem, 1.6vh, 1.1rem) clamp(1rem, 2vw, 1.3rem);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    background: var(--bg-muted);
+}
+.callout-strip strong { color: var(--ink); }
+
+/* CTA button */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: clamp(0.9rem, 2vh, 1.15rem) clamp(1.7rem, 3vw, 2.4rem);
+    background: var(--brand);
+    color: #04241a;
+    font-weight: 800;
+    border-radius: 999px;
+    font-size: var(--h3-size);
+    text-decoration: none;
+    box-shadow: 0 8px 30px rgba(24,203,150,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-sans);
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(24,203,150,0.45); }
+.cta-btn .arrow { transition: transform 0.2s; }
+.cta-btn:hover .arrow { transform: translateX(4px); }
+
+.cta-btn.ghost {
+    background: transparent;
+    color: var(--brand-dark);
+    border: 2px solid var(--brand);
+    box-shadow: none;
+}
+.slide.dark .cta-btn.ghost { color: var(--brand); }
+.cta-btn.ghost:hover { background: var(--bg-mint); box-shadow: none; }
+
+.badge-soon {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    background: var(--bg-muted);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35em 0.9em;
+}
+
+/* wordmark */
+.wordmark {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--brand), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+/* footer meta / index */
+.footer-meta, .slide-index {
+    position: absolute;
+    bottom: clamp(0.6rem, 1.6vh, 1rem);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    opacity: 0.65;
+    text-transform: uppercase;
+}
+.footer-meta { left: var(--slide-padding); }
+.slide-index { right: var(--slide-padding); }
+
+@media (max-height: 600px) { .footer-meta, .slide-index { display: none; } }
+
+/* reveal animation */
+[data-reveal] { opacity: 0; }
+.slide.active [data-reveal] {
+    animation: reveal 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--d, 0ms);
+}
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* nav dots */
+.nav-dots {
+    position: fixed;
+    right: clamp(0.6rem, 2vw, 1.4rem);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    z-index: 50;
+}
+.nav-dots button {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #c7d0db;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+.nav-dots button.active { background: var(--brand); transform: scale(1.5); }
+.nav-dots button:hover { background: var(--brand-dark); }
+
+/* keyboard hint on cover */
+.keyboard-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    animation: bob 2.2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" id="navDots" aria-label="Navigation des slides"></nav>
+
+<main id="deck">
+
+<!-- 0 — COUVERTURE -->
+<section class="slide dark" data-index="0">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:clamp(0.8rem,2.2vh,1.4rem);">
+      <div class="wordmark" data-reveal style="--d:0ms; font-size:clamp(2.2rem,7vw,4.5rem);">Cocevo</div>
+      <h1 data-reveal style="--d:120ms; font-size:clamp(1.5rem,4.2vw,2.75rem); font-weight:800; line-height:1.2; margin:0; max-width:22ch;">Toutes vos données d'entreprise.<br>À un <em class="accent">clic</em> près.</h1>
+      <p class="lede" data-reveal style="--d:240ms; max-width:54ch; text-align:center; margin:0 auto;">Le problème universel, la preuve, et l'offre derrière l'approche cross-sectorielle de Cocevo.</p>
+      <div class="chips" data-reveal style="--d:440ms; justify-content:center;">
+        <span class="chip">Tout secteur</span>
+        <span class="chip">$1M–$100M de revenu</span>
+        <span class="chip">Pré-lancement</span>
+      </div>
+      <div class="keyboard-hint" data-reveal style="--d:560ms; margin-top:clamp(1rem,3vh,2rem);">↓ faites défiler pour commencer</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">1 / 13</div>
+</section>
+
+<!-- 1 — PROBLÈME UNIVERSEL -->
+<section class="slide" data-index="1">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Le problème, partout</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:24ch;">Chaque équipe, dans chaque secteur, se noie dans les mêmes données <em class="accent">éparpillées</em>.</h2>
+      <div data-reveal style="display:flex; align-items:baseline; gap:clamp(0.8rem,2vw,1.5rem); flex-wrap:wrap; margin:clamp(0.6rem,2vh,1rem) 0; --d:180ms;">
+        <span style="font-size:clamp(2.2rem,7vw,4rem); font-weight:800; background:linear-gradient(135deg,var(--brand),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1;">9,3 h/sem</span>
+        <span class="lede" style="max-width:28ch;">que l'employé moyen passe à chercher et rassembler de l'information à travers des systèmes déconnectés</span>
+      </div>
+      <p class="lede" data-reveal style="--d:280ms; max-width:68ch;">Le schéma est le même dans chaque service et chaque secteur, qu'il s'agisse de fintech, de retail ou de RH : le CRM ici, des tableurs là, des documents ailleurs.</p>
+      <div class="footnote" data-reveal style="--d:360ms;">Source : McKinsey Global Institute. Les employés passent en moyenne 1,8 heure par jour, ~9,3 heures par semaine, à chercher et rassembler de l'information.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">2 / 13</div>
+</section>
+
+<!-- 2 — CE QUE ÇA VOUS COÛTE -->
+<section class="slide dark" data-index="2">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms; justify-content:center;">Ce que ça vous coûte réellement</div>
+      <div class="stat-hero hero-anim">
+        <div class="num" data-reveal style="--d:100ms;">$19 732</div>
+        <div class="num-label" data-reveal style="--d:220ms;">perdus en productivité, par employé, chaque année, à cause d'informations éparpillées et difficiles à trouver</div>
+      </div>
+      <div class="calc" data-reveal style="--d:340ms;">
+        <div>Votre effectif × <strong>$19 732</strong> = votre coût annuel de données éparpillées</div>
+        <div>Exemple : une entreprise de <strong>50 personnes</strong> → <strong>~$987K perdus chaque année</strong></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:440ms; text-align:center; margin-left:auto; margin-right:auto;">Source : IDC. Les entreprises perdent jusqu'à 21,3% de productivité à cause de problèmes liés aux documents, soit environ $19 732 par employé de bureau et par an.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">3 / 13</div>
+</section>
+
+<!-- 3 — LES DONNÉES LE CONFIRMENT -->
+<section class="slide" data-index="3">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Ce n'est pas un chiffre isolé</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">La recherche arrive toujours au même <em class="accent">nombre</em>.</h2>
+      <div class="arch" data-reveal style="--d:160ms;">
+        <div class="arch-cell"><div class="lbl">Temps perdu</div><div class="val">1,8 h / jour</div><div class="sub">à chercher et rassembler de l'information (McKinsey Global Institute)</div></div>
+        <div class="arch-cell"><div class="lbl">Productivité</div><div class="val">jusqu'à 21,3%</div><div class="sub">de productivité perdue à cause de problèmes documentaires (IDC)</div></div>
+        <div class="arch-cell"><div class="lbl">Travail du savoir</div><div class="val">~25% du temps</div><div class="sub">perdu en fuites de productivité chez les knowledge workers (APQC)</div></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:260ms;">Sources : McKinsey Global Institute · IDC · APQC. Recherches sur la productivité au travail et la recherche d'information.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">4 / 13</div>
+</section>
+
+<!-- 4 — QUATRE SECTEURS -->
+<section class="slide" style="background:var(--bg-mint);" data-index="4">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Même mécanisme, tous secteurs</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Quatre secteurs. Exactement le même <em class="accent">schéma</em>.</h2>
+      <div class="arch" data-reveal style="--d:160ms;">
+        <div class="arch-cell" style="background:var(--bg);"><div class="lbl">Fintech</div><div class="val">Traquer un dossier d'onboarding</div><div class="sub">CRM, plateforme KYC, email, base de conformité</div></div>
+        <div class="arch-cell" style="background:var(--bg);"><div class="lbl">Retail / B2C</div><div class="val">Vérifier le vrai statut d'un produit</div><div class="sub">système de stock, fichiers fournisseurs, tickets support, logs entrepôt</div></div>
+        <div class="arch-cell" style="background:var(--bg);"><div class="lbl">RH</div><div class="val">Reconstituer le dossier complet d'un employé</div><div class="sub">SIRH, paie, dossier contrats, évaluations de performance</div></div>
+        <div class="arch-cell" style="background:var(--bg);"><div class="lbl">Service client</div><div class="val">Retrouver l'historique de commande d'un client</div><div class="sub">CRM, facturation, plateforme de livraison, fils d'emails</div></div>
+      </div>
+      <div class="callout-strip" data-reveal style="--d:280ms;">Secteurs différents, outils différents, mais exactement les mêmes minutes perdues à chaque fois que quelqu'un a besoin d'une réponse.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">5 / 13</div>
+</section>
+
+<!-- 5 — COÛT HUMAIN -->
+<section class="slide" data-index="5">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Une défaillance du système, pas des personnes</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Chaque équipe encaisse la même <em class="accent">taxe</em>.</h2>
+      <div class="quote-grid" data-reveal style="--d:160ms;">
+        <div class="quote-card">
+          <div class="role">Responsable Opérations</div>
+          <blockquote>« Je sais que la réponse existe quelque part. Je ne sais juste pas lequel de nos six systèmes la contient aujourd'hui. »</blockquote>
+        </div>
+        <div class="quote-card">
+          <div class="role">Conseiller Service Client</div>
+          <blockquote>« Le client est au téléphone. C'est moi qui ai l'air incompétent pendant que je fouille dans quatre outils différents pour une seule réponse. »</blockquote>
+        </div>
+      </div>
+      <div class="footnote" data-reveal style="--d:280ms;">Profils composites tirés d'études cross-sectorielles sur la productivité au travail, non attribués à une personne ou une entreprise précise.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">6 / 13</div>
+</section>
+
+<!-- 6 — LA SOLUTION -->
+<section class="slide" data-index="6">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">La solution</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Un dashboard. Toutes les sources. Le <em class="accent">bon</em> accès.</h2>
+      <p class="lede" data-reveal style="--d:160ms; margin-bottom:clamp(1rem,2.4vh,1.4rem);">Cocevo connecte CRM, tableurs, espaces documentaires, bases de données et 18+ outils métier en une seule vue automatisée, avec un accès calibré par équipe, quel que soit votre secteur.</p>
+      <div class="arch" data-reveal style="--d:240ms;">
+        <div class="arch-cell"><div class="lbl">Voir</div><div class="val">Statut en temps réel</div><div class="sub">fini les emails à quatre services pour une seule réponse</div></div>
+        <div class="arch-cell"><div class="lbl">Anticiper</div><div class="val">La prochaine étape</div><div class="sub">avant même qu'on ait à demander</div></div>
+        <div class="arch-cell"><div class="lbl">Accéder instantanément</div><div class="val">Un clic, pas cinq systèmes</div><div class="sub">fini le copier-coller entre plateformes</div></div>
+        <div class="arch-cell"><div class="lbl">Prêt pour l'audit</div><div class="val">Toujours appuyé sur la donnée</div><div class="sub">chaque décision traçable, chaque indicateur à jour</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">7 / 13</div>
+</section>
+
+<!-- 7 — COMMENT ÇA MARCHE -->
+<section class="slide" data-index="7">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Sous le capot</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Accéder sans s'<em class="accent">exposer</em>.</h2>
+      <div class="grid-2" data-reveal style="--d:160ms; margin-top:clamp(0.8rem,2vh,1.2rem);">
+        <div class="pipeline">
+          <div class="box"><div class="k">Sources</div><div class="v">Sources de données fermées</div></div>
+          <span class="arrow-sep">→</span>
+          <div class="box highlight"><div class="k">Couche</div><div class="v">Couche d'accès IA Cocevo</div></div>
+          <span class="arrow-sep">→</span>
+          <div class="box"><div class="k">Résultat</div><div class="v">Dashboards par équipe</div></div>
+        </div>
+        <div class="explain">
+          <div class="card"><div class="card-title">Pourquoi une couche IA, pas un accès partagé</div><p>Chaque équipe interroge uniquement ses propres sources, ou celles explicitement ouvertes pour elle. L'IA backend de Cocevo lit les sources fermées et ne renvoie que ce qui est sûr à partager, jamais la donnée brute, ni le prompt derrière.</p></div>
+          <div class="card"><div class="card-title">Pourquoi c'est essentiel pour la confiance</div><p>Chaque équipe garde sa frontière de confidentialité. Aucun accès global aux systèmes bruts d'un autre service, juste la réponse qu'elle est autorisée à voir, que les règles soient internes ou réglementaires.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">8 / 13</div>
+</section>
+
+<!-- 8 — COCEVO FINDER -->
+<section class="slide" data-index="8">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Essayez-le vous-même, dès maintenant</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:24ch;">Cocevo Finder : ressentez le gain sur vos <em class="accent">propres</em> fichiers.</h2>
+      <p class="lede" data-reveal style="--d:150ms; margin-bottom:clamp(1rem,2.4vh,1.4rem);">Un outil local gratuit qui donne un avant-goût de la promesse de Cocevo : recherchez dans vos propres fichiers Excel et Word éparpillés, depuis un seul endroit, en quelques secondes. Aucune configuration sectorielle, pointez-le simplement vers vos dossiers.</p>
+      <div class="arch" data-reveal style="--d:230ms;">
+        <div class="arch-cell"><div class="lbl">Ce qu'il fait</div><div class="val">Chercher dans tous les fichiers, instantanément</div><div class="sub">pointez-le vers vos dossiers Excel/Word pour une seule recherche sur l'ensemble</div></div>
+        <div class="arch-cell"><div class="lbl">Boost IA (optionnel)</div><div class="val">Avec votre propre clé API</div><div class="sub">mise en forme, catégorisation et résumés plus intelligents, via votre propre fournisseur IA</div></div>
+        <div class="arch-cell"><div class="lbl">Confidentialité</div><div class="val">100% local par défaut</div><div class="sub">rien ne sort de la machine, sauf si vous ajoutez votre propre clé IA</div></div>
+      </div>
+      <div class="callout-strip" data-reveal style="--d:300ms;"><strong>Pourquoi c'est la preuve parfaite :</strong> quel que soit votre secteur, si vos fichiers sont éparpillés dans des dossiers, Finder vous montre exactement le gain de temps que la plateforme complète de Cocevo apporte à l'échelle de toute l'équipe.</div>
+      <div data-reveal style="margin-top:clamp(1rem,2.4vh,1.4rem); display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; --d:370ms;">
+        <span class="cta-btn" style="cursor:default;">Obtenir Cocevo Finder gratuitement <span class="arrow">→</span></span>
+        <span class="badge-soon">Accès anticipé · en développement</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo · Lead magnet</div>
+  <div class="slide-index">9 / 13</div>
+</section>
+
+<!-- 9 — À QUI ÇA S'ADRESSE -->
+<section class="slide" data-index="9">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">À qui ça s'adresse</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:24ch;">Toute entreprise $1M–$100M noyée sous des données <em class="accent">éparpillées</em>.</h2>
+      <div class="arch" data-reveal style="--d:160ms;">
+        <div class="arch-cell"><div class="lbl">Taille d'entreprise</div><div class="val">$1M–$100M de revenu</div><div class="sub">assez établie pour avoir de vraies données réparties entre plusieurs outils, pas encore unifiées</div></div>
+        <div class="arch-cell"><div class="lbl">Le signal</div><div class="val">3+ systèmes déconnectés</div><div class="sub">une équipe qui jongle régulièrement entre CRM, tableurs, documents et bases de données pour répondre à une seule question</div></div>
+        <div class="arch-cell"><div class="lbl">Secteur</div><div class="val">Peu importe</div><div class="sub">fintech, retail, RH, service client ; le mécanisme est identique partout</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">10 / 13</div>
+</section>
+
+<!-- 10 — AU-DELÀ DE FINDER -->
+<section class="slide dark" data-index="10">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">La vue d'ensemble</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:24ch;">Vous êtes une entreprise en croissance, pas un éditeur de <em class="accent">logiciel</em>.</h2>
+      <p data-reveal style="font-size:var(--h3-size); font-weight:700; margin:0 0 clamp(1rem,2.4vh,1.4rem) 0; --d:160ms;">Finder montre le gain sur votre propre ordinateur. La plateforme complète l'apporte à toute votre équipe, en ligne en 3 semaines.</p>
+      <div class="compare" data-reveal style="--d:240ms;">
+        <div class="opt bad">
+          <h4>Option A : Le construire vous-même</h4>
+          <ul>
+            <li>12 à 18 mois pour livrer</li>
+            <li>$500K+ de coût, revenu perdu en attendant</li>
+            <li>Aucune garantie que ça marche</li>
+          </ul>
+        </div>
+        <div class="opt good">
+          <h4>Option B : Cocevo</h4>
+          <ul>
+            <li>En ligne en 3 semaines, à l'échelle de l'équipe</li>
+            <li>Conçu pour unifier les outils que vous utilisez déjà</li>
+            <li>Votre équipe reste concentrée sur la croissance</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footnote" data-reveal style="--d:320ms;">Aucun prix affiché ici, volontairement : la tarification complète se discute lors d'une démo en direct.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">11 / 13</div>
+</section>
+
+<!-- 11 — POURQUOI COMMENCER PETIT -->
+<section class="slide" data-index="11">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Faire disparaître le risque</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:24ch;">Pas encore de client référence. Alors c'est nous qui portons le <em class="accent">risque</em>.</h2>
+      <div class="flow" data-reveal style="--d:160ms;">
+        <div class="flow-row"><span class="tag n1">Étape 1</span><span class="arrow">→</span><span class="what">On démarre par un pilote sur une équipe ou un workflow, pas un déploiement à l'échelle de l'entreprise.</span><span class="who">Engagement minimal</span></div>
+        <div class="flow-row"><span class="tag n2">Étape 2</span><span class="arrow">→</span><span class="what">Si l'objectif de gain de temps convenu n'est pas atteint en 90 jours, on continue d'optimiser sans coût additionnel jusqu'à l'atteindre.</span><span class="who">Garantie de résultat</span></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:260ms;">Pensé pour des acheteurs qui se soucient plus du risque d'exécution que d'un remboursement : la garantie, c'est que Cocevo fait le travail, pas qu'il rembourse.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">12 / 13</div>
+</section>
+
+<!-- 12 — CTA FINAL -->
+<section class="slide dark" data-index="12">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:clamp(1rem,2.6vh,1.6rem);">
+      <div class="eyebrow" data-reveal style="--d:0ms; justify-content:center;">La demande</div>
+      <h2 class="headline" data-reveal style="--d:100ms; font-size:clamp(2rem,6vw,3.5rem); text-align:center;">Obtenez Cocevo <em class="accent">Finder</em>.</h2>
+      <p class="lede" data-reveal style="--d:220ms; text-align:center; margin:0 auto; max-width:54ch;">Chaque semaine que votre équipe passe à chercher de l'information est une semaine que vous ne récupérerez jamais, quel que soit votre secteur.</p>
+      <button type="button" class="cta-btn" data-reveal style="--d:340ms;">Obtenir Cocevo Finder gratuitement <span class="arrow">→</span></button>
+      <div data-reveal style="--d:420ms; font-family:var(--font-mono); font-size:var(--small-size); color:var(--ink-muted);">Prêt à aller plus loin ? Parlons de la plateforme complète pour votre équipe.</div>
+      <div class="wordmark" data-reveal style="--d:500ms; font-size:clamp(1rem,2vw,1.4rem); margin-top:clamp(0.6rem,2vh,1.2rem);">Cocevo</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">13 / 13</div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsNav = document.getElementById('navDots');
+  var current = 0;
+
+  slides.forEach(function (slide, i) {
+    var btn = document.createElement('button');
+    btn.setAttribute('aria-label', 'Aller à la slide ' + (i + 1));
+    if (i === 0) btn.classList.add('active');
+    btn.addEventListener('click', function () { goTo(i); });
+    dotsNav.appendChild(btn);
+  });
+  var dots = Array.prototype.slice.call(dotsNav.children);
+
+  function setActive(i) {
+    current = i;
+    slides.forEach(function (s, idx) {
+      if (idx === i) s.classList.add('active');
+    });
+    dots.forEach(function (d, idx) { d.classList.toggle('active', idx === i); });
+  }
+
+  function goTo(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+        var idx = slides.indexOf(entry.target);
+        setActive(idx);
+      }
+    });
+  }, { threshold: [0.6] });
+  slides.forEach(function (s) { io.observe(s); });
+
+  setActive(0);
+  slides[0].classList.add('active');
+
+  document.addEventListener('keydown', function (e) {
+    var active = document.activeElement;
+    if (active && ['BUTTON', 'A', 'INPUT', 'TEXTAREA'].indexOf(active.tagName) !== -1) return;
+    if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) !== -1) {
+      e.preventDefault(); goTo(current + 1);
+    } else if (['ArrowUp', 'PageUp'].indexOf(e.key) !== -1) {
+      e.preventDefault(); goTo(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(slides.length - 1);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

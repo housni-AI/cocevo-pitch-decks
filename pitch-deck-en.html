@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cocevo — Pitch Deck (Fintech, EN)</title>
+<style>
+/* ===========================================
+   VIEWPORT FITTING: MANDATORY BASE STYLES
+   =========================================== */
+
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+:root {
+    --title-size: clamp(1.5rem, 5vw, 4rem);
+    --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+    --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+    --body-size: clamp(0.8rem, 1.5vw, 1.125rem);
+    --small-size: clamp(0.68rem, 1vw, 0.875rem);
+
+    --slide-padding: clamp(1rem, 4vw, 4rem);
+    --content-gap: clamp(0.5rem, 2vw, 2rem);
+    --element-gap: clamp(0.25rem, 1vw, 1rem);
+
+    /* Cocevo brand — extracted live from cocevo.com CSS */
+    --bg: #ffffff;
+    --bg-muted: #f4f7fb;
+    --bg-mint: #eafaf7;
+    --border: #e6eaf0;
+    --ink: #0a1626;
+    --ink-muted: #5b6b7b;
+    --brand: #18cb96;
+    --brand-dark: #0fa97b;
+    --cyan: #5ce1e6;
+    --accent: var(--brand-dark);
+    --bad: #e2685c;
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--ink);
+}
+
+.slide {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--bg);
+    color: var(--ink);
+    border-top: 1px solid var(--border);
+}
+.slide:first-child { border-top: none; }
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 100%;
+    overflow: hidden;
+    padding: var(--slide-padding);
+}
+
+.content-wrap {
+    max-width: min(92vw, 1180px);
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card, .container, .content-box {
+    max-width: min(90vw, 1000px);
+    max-height: min(80vh, 700px);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+img, .image-container {
+    max-width: 100%;
+    max-height: min(50vh, 400px);
+    object-fit: contain;
+}
+
+@media (max-height: 700px) {
+    :root {
+        --slide-padding: clamp(0.75rem, 3vw, 2rem);
+        --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+        --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+        --h2-size: clamp(1rem, 3vw, 1.75rem);
+    }
+}
+
+@media (max-height: 600px) {
+    :root {
+        --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+        --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+        --title-size: clamp(1.1rem, 4vw, 2rem);
+        --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+    }
+
+    .nav-dots, .keyboard-hint, .decorative {
+        display: none;
+    }
+}
+
+@media (max-height: 500px) {
+    :root {
+        --slide-padding: clamp(0.4rem, 2vw, 1rem);
+        --title-size: clamp(1rem, 3.5vw, 1.5rem);
+        --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        --body-size: clamp(0.65rem, 1vw, 0.85rem);
+    }
+    /* extra safety net for landscape-phone heights (e.g. 667x375, 896x414) */
+    .flow { gap: 0.3rem; }
+    .flow-row { padding: 0.3rem 0.6rem; gap: 0.4rem; }
+    .arch-cell { padding: 0.5rem 0.7rem; }
+    .arch-cell .val { margin-bottom: 0.15em; }
+    .quote-card { padding: 0.7rem; gap: 0.35rem; }
+    .quote-card blockquote { font-size: 0.85rem; }
+    .compare { gap: 0.5rem; }
+    .compare .opt { padding: 0.6rem 0.8rem; }
+    .opt ul { gap: 0.25rem; }
+    .opt h4 { margin-bottom: 0.35rem; font-size: 1rem; }
+    .split-title { padding-bottom: 0.3rem; margin-bottom: 0.5rem; }
+    .eyebrow { margin-bottom: 0.3rem; }
+    .stat-hero .num { font-size: clamp(2rem, 9vw, 3.5rem); }
+    .stat-hero .num-label { font-size: 0.85rem; }
+    .calc { margin-top: 0.4rem; gap: 0.15rem; }
+    .footnote { margin-top: 0.3rem; }
+    .grid-2 { gap: 0.6rem; }
+    .pipeline .box { padding: 0.5rem 0.7rem; min-width: 110px; }
+    .explain .card { padding: 0.5rem 0.7rem; margin-bottom: 0.4rem; }
+    .converge { gap: 0.3rem; }
+    .converge .path { padding: 0.5rem 0.7rem; }
+    .chips { margin-top: 0.4rem; gap: 0.4rem; }
+    .chip { padding: 0.3em 0.7em; }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --title-size: clamp(1.25rem, 7vw, 2.5rem);
+    }
+    .grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+    }
+    html { scroll-behavior: auto; }
+}
+
+/* ===========================================
+   DARK SLIDE VARIANT
+   =========================================== */
+.slide.dark {
+    --bg: #0a1626;
+    --bg-muted: rgba(255,255,255,0.055);
+    --bg-mint: rgba(24,203,150,0.12);
+    --border: rgba(255,255,255,0.14);
+    --ink: #ffffff;
+    --ink-muted: #9fb0c3;
+    --accent: var(--cyan);
+}
+
+.slide.dark .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    opacity: 0.35;
+    animation: floaty 8s ease-in-out infinite;
+}
+.slide.dark .glow.g1 { width: 40vw; height: 40vw; background: var(--brand); top: -10%; right: -8%; }
+.slide.dark .glow.g2 { width: 30vw; height: 30vw; background: var(--cyan); bottom: -12%; left: -6%; animation-duration: 10s; animation-delay: -3s; }
+
+@keyframes floaty {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-14px) rotate(2deg); }
+}
+
+/* ===========================================
+   TYPOGRAPHY / SHARED COMPONENTS
+   =========================================== */
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-weight: 600;
+    margin-bottom: clamp(0.6rem, 1.6vh, 1rem);
+}
+.eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+h2.headline {
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0 0 clamp(0.6rem, 2vh, 1.2rem) 0;
+}
+em.accent { font-style: normal; color: var(--accent); font-weight: 800; }
+
+p.lede {
+    font-size: var(--body-size);
+    line-height: 1.5;
+    color: var(--ink-muted);
+    max-width: 62ch;
+    margin: 0;
+}
+
+.footnote {
+    font-family: var(--font-mono);
+    font-size: clamp(0.62rem, 0.9vw, 0.75rem);
+    color: var(--ink-muted);
+    opacity: 0.85;
+    margin-top: clamp(0.6rem, 2vh, 1.2rem);
+    max-width: 70ch;
+    line-height: 1.4;
+}
+
+/* split-title chapter header */
+.split-title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: clamp(0.8rem, 2vh, 1.2rem);
+    margin-bottom: clamp(1rem, 3vh, 2rem);
+}
+.split-title h3 {
+    font-size: var(--h2-size);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+.split-title .meta {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+    font-size: var(--small-size);
+    white-space: nowrap;
+    padding-bottom: 0.3em;
+}
+
+/* arch-cells */
+.arch {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+}
+.arch-cell {
+    background: var(--bg);
+    padding: clamp(1rem, 2.2vw, 1.6rem);
+}
+.arch-cell .lbl {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 0.5em;
+}
+.arch-cell .val {
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 0.35em;
+    line-height: 1.2;
+}
+.arch-cell .sub {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    line-height: 1.35;
+}
+
+/* flow rows */
+.flow {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.4vh, 0.8rem);
+}
+.flow-row {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: clamp(0.6rem, 1.4vw, 1rem);
+    padding: clamp(0.6rem, 1.3vh, 0.9rem) clamp(0.8rem, 1.6vw, 1.2rem);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+}
+.flow-row .tag {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    padding: 0.28em 0.7em;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-weight: 700;
+}
+.flow-row .tag.n1 { background: var(--bg-mint); color: var(--brand-dark); }
+.flow-row .tag.n2 { background: rgba(92,225,230,0.18); color: #0e7c80; }
+.flow-row .tag.n3 { background: var(--bg-muted); color: var(--ink-muted); }
+.flow-row .arrow { color: var(--ink-muted); }
+.flow-row .what { font-size: var(--body-size); color: var(--ink); line-height: 1.35; }
+.flow-row .who { font-family: var(--font-mono); font-size: var(--small-size); color: var(--ink-muted); white-space: nowrap; }
+
+@media (max-width: 720px) {
+    .flow-row { grid-template-columns: auto 1fr; row-gap: 0.3rem; }
+    .flow-row .arrow, .flow-row .who { display: none; }
+}
+
+/* chips */
+.chips { display: flex; gap: clamp(0.5rem, 1.6vw, 1rem); flex-wrap: wrap; margin-top: clamp(0.6rem, 1.8vh, 1.1rem); }
+.chip {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.45em 1.1em;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    background: var(--bg-muted);
+}
+.chip strong { color: var(--ink); font-weight: 800; }
+
+/* quote grid */
+.quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+}
+.quote-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(1.2rem, 2.5vw, 2rem);
+    background: var(--bg-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+.quote-card .role {
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-dark);
+    font-weight: 700;
+}
+.quote-card blockquote {
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    line-height: 1.42;
+    color: var(--ink);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* stat hero */
+.stat-hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(0.4rem, 1.2vh, 0.8rem); }
+.stat-hero .num {
+    font-size: clamp(3rem, 11vw, 7.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--brand), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+}
+.stat-hero .num-label {
+    font-size: var(--h3-size);
+    color: var(--ink-muted);
+    max-width: 40ch;
+    font-weight: 500;
+}
+.stat-hero.hero-anim .num { animation: heroPop 1s cubic-bezier(0.2,0.8,0.2,1) both; }
+@keyframes heroPop { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+.calc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: clamp(0.8rem, 2vh, 1.2rem);
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    text-align: center;
+}
+.calc strong { color: var(--ink); font-weight: 700; }
+
+/* compare (Option A / B) */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 1.4rem); }
+.compare .opt {
+    border-radius: 14px;
+    padding: clamp(1.1rem, 2.3vw, 1.6rem);
+    border: 1px solid var(--border);
+}
+.opt.bad { background: rgba(226,104,92,0.08); border-color: rgba(226,104,92,0.35); }
+.opt.good { border-color: var(--brand); background: rgba(24,203,150,0.1); }
+.opt h4 { font-size: var(--h3-size); margin: 0 0 0.7rem 0; font-weight: 800; }
+.opt ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.opt li { font-size: var(--body-size); line-height: 1.35; padding-left: 1.3em; position: relative; color: var(--ink); }
+.opt.bad li::before { content: '✕'; position: absolute; left: 0; color: var(--bad); font-weight: 800; }
+.opt.good li::before { content: '✓'; position: absolute; left: 0; color: var(--brand); font-weight: 800; }
+
+@media (max-width: 720px) { .compare { grid-template-columns: 1fr; } }
+
+/* pipeline diagram */
+.pipeline { display: flex; align-items: center; justify-content: center; gap: clamp(0.5rem, 2vw, 1.2rem); flex-wrap: wrap; }
+.pipeline .box {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    background: var(--bg-muted);
+    text-align: center;
+    min-width: 150px;
+}
+.pipeline .box .k { font-family: var(--font-mono); font-size: var(--small-size); color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4em; }
+.pipeline .box .v { font-size: clamp(0.9rem, 1.5vw, 1.1rem); font-weight: 800; color: var(--ink); }
+.pipeline .box.highlight { border-color: var(--brand); background: var(--bg-mint); }
+.pipeline .arrow-sep { font-size: 1.4rem; color: var(--ink-muted); }
+
+/* grid-2 mock + reason */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 3vw, 2.5rem); align-items: center; }
+@media (max-width: 800px) { .grid-2 { grid-template-columns: 1fr; } }
+.explain .card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: clamp(0.9rem, 1.8vw, 1.3rem);
+    background: var(--bg);
+    margin-bottom: 0.7rem;
+}
+.explain .card:last-child { margin-bottom: 0; }
+.explain .card-title { font-weight: 800; font-size: var(--body-size); margin-bottom: 0.35em; color: var(--ink); }
+.explain .card p { font-size: var(--small-size); color: var(--ink-muted); line-height: 1.42; margin: 0; }
+
+/* converge diagram */
+.converge { display: flex; flex-direction: column; align-items: center; gap: clamp(0.6rem, 1.6vh, 1rem); }
+.converge .paths { display: flex; gap: clamp(1rem, 3vw, 2.5rem); justify-content: center; flex-wrap: wrap; width: 100%; }
+.converge .path { flex: 1; min-width: 220px; max-width: 340px; border: 1px solid var(--border); border-radius: 14px; padding: clamp(1rem, 2vw, 1.3rem); background: var(--bg-muted); }
+.converge .path .who { font-family: var(--font-mono); font-size: var(--small-size); color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5em; font-weight: 700; }
+.converge .path p { margin: 0; font-size: var(--body-size); color: var(--ink); line-height: 1.4; }
+.converge .arrow-down { font-size: 1.4rem; color: var(--ink-muted); }
+.converge .result { border: 2px solid var(--brand); border-radius: 999px; padding: 0.7rem 1.6rem; background: var(--bg-mint); font-weight: 800; font-size: var(--body-size); color: var(--ink); }
+
+/* callout strip */
+.callout-strip {
+    margin-top: clamp(1rem, 2.5vh, 1.5rem);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: clamp(0.8rem, 1.6vh, 1.1rem) clamp(1rem, 2vw, 1.3rem);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    background: var(--bg-muted);
+}
+.callout-strip strong { color: var(--ink); }
+
+/* CTA button */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    padding: clamp(0.9rem, 2vh, 1.15rem) clamp(1.7rem, 3vw, 2.4rem);
+    background: var(--brand);
+    color: #04241a;
+    font-weight: 800;
+    border-radius: 999px;
+    font-size: var(--h3-size);
+    text-decoration: none;
+    box-shadow: 0 8px 30px rgba(24,203,150,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-sans);
+}
+.cta-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(24,203,150,0.45); }
+.cta-btn .arrow { transition: transform 0.2s; }
+.cta-btn:hover .arrow { transform: translateX(4px); }
+
+.cta-btn.ghost {
+    background: transparent;
+    color: var(--brand-dark);
+    border: 2px solid var(--brand);
+    box-shadow: none;
+}
+.slide.dark .cta-btn.ghost { color: var(--brand); }
+.cta-btn.ghost:hover { background: var(--bg-mint); box-shadow: none; }
+
+.badge-soon {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    background: var(--bg-muted);
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35em 0.9em;
+}
+
+/* wordmark */
+.wordmark {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--brand), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+/* footer meta / index */
+.footer-meta, .slide-index {
+    position: absolute;
+    bottom: clamp(0.6rem, 1.6vh, 1rem);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    opacity: 0.65;
+    text-transform: uppercase;
+}
+.footer-meta { left: var(--slide-padding); }
+.slide-index { right: var(--slide-padding); }
+
+@media (max-height: 600px) { .footer-meta, .slide-index { display: none; } }
+
+/* reveal animation */
+[data-reveal] { opacity: 0; }
+.slide.active [data-reveal] {
+    animation: reveal 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--d, 0ms);
+}
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* nav dots */
+.nav-dots {
+    position: fixed;
+    right: clamp(0.6rem, 2vw, 1.4rem);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    z-index: 50;
+}
+.nav-dots button {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #c7d0db;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+.nav-dots button.active { background: var(--brand); transform: scale(1.5); }
+.nav-dots button:hover { background: var(--brand-dark); }
+
+/* keyboard hint on cover */
+.keyboard-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    font-family: var(--font-mono);
+    font-size: var(--small-size);
+    color: var(--ink-muted);
+    animation: bob 2.2s ease-in-out infinite;
+}
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+</style>
+</head>
+<body>
+
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<main id="deck">
+
+<!-- 0 — COVER -->
+<section class="slide dark" data-index="0">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:clamp(0.8rem,2.2vh,1.4rem);">
+      <div class="wordmark" data-reveal style="--d:0ms; font-size:clamp(2.2rem,7vw,4.5rem);">Cocevo</div>
+      <h1 data-reveal style="--d:120ms; font-size:clamp(1.5rem,4.2vw,2.75rem); font-weight:800; line-height:1.2; margin:0; max-width:20ch;">All your enterprise data.<br>One click <em class="accent">away</em>.</h1>
+      <p class="lede" data-reveal style="--d:240ms; max-width:52ch; text-align:center; margin:0 auto;">The problem, the buyer, and the offer behind Cocevo's approach to fintech onboarding.</p>
+      <div class="chips" data-reveal style="--d:440ms; justify-content:center;">
+        <span class="chip">US FinServ Mid-Market</span>
+        <span class="chip">Pre-launch</span>
+        <span class="chip">Sept 2026</span>
+      </div>
+      <div class="keyboard-hint" data-reveal style="--d:560ms; margin-top:clamp(1rem,3vh,2rem);">↓ scroll to begin</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">1 / 16</div>
+</section>
+
+<!-- 1 — MARKET -->
+<section class="slide" data-index="1">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="split-title">
+        <h3 data-reveal style="--d:0ms;">A market that already <em class="accent">needs</em> this.</h3>
+        <span class="meta">01 · Market</span>
+      </div>
+      <p class="lede" data-reveal style="--d:80ms; margin-bottom:clamp(1rem,2.4vh,1.4rem);">Cocevo's ideal customer: payment processors, digital lenders, small/community banks, and neobanks: $1M–$100M revenue, processing dozens to hundreds of onboarding files a month across 4+ disconnected systems.</p>
+      <div class="arch" data-reveal style="--d:160ms;">
+        <div class="arch-cell"><div class="lbl">Payment Processors</div><div class="val">750+ tracked (US)</div><div class="sub">PayFacs, gateways, merchant acquirers</div></div>
+        <div class="arch-cell"><div class="lbl">Digital Lenders</div><div class="val">36+ major (US)</div><div class="sub">tracked large players (smaller/mid-tier universe is larger)</div></div>
+        <div class="arch-cell"><div class="lbl">Small / Community Banks</div><div class="val">~4,050–4,700 (US)</div><div class="sub">assets under $10B, relationship banking</div></div>
+        <div class="arch-cell"><div class="lbl">Neobanks</div><div class="val">74 (US)</div><div class="sub">digital-only challenger banks</div></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:240ms;">Payment Processor and Digital Lender counts are national raw counts, not yet filtered by revenue band; precise sizing is pending. Neobank and Small/Community Bank counts are full national totals.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">2 / 16</div>
+</section>
+
+<!-- 2 — THE PROBLEM -->
+<section class="slide" data-index="2">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">The core problem</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:18ch;">Data fragmentation is <em class="accent">killing</em> onboarding.</h2>
+      <div data-reveal style="display:flex; align-items:baseline; gap:clamp(0.8rem,2vw,1.5rem); flex-wrap:wrap; margin:clamp(0.6rem,2vh,1rem) 0; --d:180ms;">
+        <span style="font-size:clamp(2.6rem,8vw,4.5rem); font-weight:800; background:linear-gradient(135deg,var(--brand),var(--cyan)); -webkit-background-clip:text; background-clip:text; color:transparent; line-height:1;">30–50%</span>
+        <span class="lede" style="max-width:26ch;">of qualified applicants abandon before onboarding completes</span>
+      </div>
+      <p class="lede" data-reveal style="--d:280ms; max-width:68ch;">A 24–48 hour approval should be routine. Instead it takes 7–14 days, because the answer is scattered across 4–6 disconnected systems: CRM, KYC platform, document storage, compliance database.</p>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">3 / 16</div>
+</section>
+
+<!-- 3 — BROKEN JOURNEY -->
+<section class="slide" data-index="3">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">The workflow, as it actually runs</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:20ch;">Four stages. <em class="accent">Nobody</em> owns the handoff.</h2>
+      <div class="flow" data-reveal style="--d:160ms;">
+        <div class="flow-row"><span class="tag n1">Stage 1</span><span class="arrow">→</span><span class="what">Sales and Onboarding hand off by email, with no shared record to check.</span><span class="who">Sales → Onboarding</span></div>
+        <div class="flow-row"><span class="tag n2">Stage 2</span><span class="arrow">→</span><span class="what">Compliance manually cross-checks 4+ systems, ~45 minutes per file.</span><span class="who">Onboarding → Compliance</span></div>
+        <div class="flow-row"><span class="tag n1">Stage 3</span><span class="arrow">→</span><span class="what">Underwriting re-gathers data Compliance already verified.</span><span class="who">Compliance → Underwriting</span></div>
+        <div class="flow-row"><span class="tag n3">Stage 4</span><span class="arrow">→</span><span class="what">IT, Ops, and Compliance sign off separately, with no single source of truth.</span><span class="who">Underwriting → Setup → Live</span></div>
+      </div>
+      <div class="chips" data-reveal style="--d:280ms;">
+        <span class="chip">Ideal: <strong>12 hours</strong></span>
+        <span class="chip">Typical: <strong>12–26 days</strong></span>
+        <span class="chip">With issues: <strong>up to 67 days</strong></span>
+      </div>
+      <div class="footnote" data-reveal style="--d:360ms;">Source: internal cross-functional workflow audit (10-step onboarding process, compressed to 4 stages here).</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">4 / 16</div>
+</section>
+
+<!-- 4 — THE PRICE TAG -->
+<section class="slide dark" data-index="4">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms; justify-content:center;">What it actually costs</div>
+      <div class="stat-hero hero-anim">
+        <div class="num" data-reveal style="--d:100ms;">$8.75M</div>
+        <div class="num-label" data-reveal style="--d:220ms;">in lost lifetime revenue every year, from onboarding abandonment alone, at a single $10M-revenue payment processor</div>
+      </div>
+      <div class="calc" data-reveal style="--d:340ms;">
+        <div>1,250 applications / year → <strong>250 abandoned</strong> (20%)</div>
+        <div>Average merchant lifetime value: <strong>$35K</strong> (3.5-year customer life)</div>
+        <div>250 × $35K = <strong>$8.75M lost</strong>, nearly the company's entire annual revenue</div>
+      </div>
+      <div class="footnote" data-reveal style="--d:440ms; text-align:center; margin-left:auto; margin-right:auto;">Illustrative model built on the company's own volume/revenue figures and industry-standard fintech merchant LTV.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">5 / 16</div>
+</section>
+
+<!-- 5 — INDUSTRY UNDER PRESSURE -->
+<section class="slide" data-index="5">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">This isn't an edge case</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:20ch;">The whole industry is <em class="accent">bleeding</em> the same way.</h2>
+      <div class="arch" data-reveal style="--d:160ms;">
+        <div class="arch-cell"><div class="lbl">Client loss</div><div class="val">70% of banks</div><div class="sub">lost clients to slow onboarding in 2025, up from 48% in 2023</div></div>
+        <div class="arch-cell"><div class="lbl">Abandonment</div><div class="val">~10% average</div><div class="sub">onboarding abandonment rate across the industry</div></div>
+        <div class="arch-cell"><div class="lbl">Compliance pressure</div><div class="val">$1.23B, H1 2025</div><div class="sub">AML fines, +417% YoY (North America is 94% of global penalties)</div></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:260ms;">Sources: fintech.global, 2025 survey of 600 senior executives · Fenergo, 2024–2025 AML fines analysis.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">6 / 16</div>
+</section>
+
+<!-- 6 — HUMAN COST -->
+<section class="slide" style="background:var(--bg-mint);" data-index="6">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">A systems failure, not a people failure</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Every role in the chain absorbs the same <em class="accent">failure</em>.</h2>
+      <div class="quote-grid" data-reveal style="--d:160ms;">
+        <div class="quote-card" style="background:var(--bg);">
+          <div class="role">Sales Rep</div>
+          <blockquote>"I closed the deal. I have no idea where the application actually is, and I lose the commission when it stalls."</blockquote>
+        </div>
+        <div class="quote-card" style="background:var(--bg);">
+          <div class="role">Onboarding Coordinator</div>
+          <blockquote>"I'm juggling 50+ files across five systems, and I get blamed for delays I never saw coming."</blockquote>
+        </div>
+      </div>
+      <div class="footnote" data-reveal style="--d:280ms;">Composite patterns drawn from documented industry workflow research, not attributed to a specific individual or company.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">7 / 16</div>
+</section>
+
+<!-- 7 — THE SOLUTION -->
+<section class="slide" data-index="7">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">The fix</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:20ch;">One dashboard. Every source. The <em class="accent">right</em> access.</h2>
+      <p class="lede" data-reveal style="--d:160ms; margin-bottom:clamp(1rem,2.4vh,1.4rem);">Cocevo connects CRM, KYC platforms, document stores, databases, and 18+ business tools into a single automated view, scoped per team.</p>
+      <div class="arch" data-reveal style="--d:240ms;">
+        <div class="arch-cell"><div class="lbl">See</div><div class="val">Real-time status</div><div class="sub">no more emailing four departments for one answer</div></div>
+        <div class="arch-cell"><div class="lbl">Predict</div><div class="val">Anticipate the next step</div><div class="sub">answer customers before compliance even replies</div></div>
+        <div class="arch-cell"><div class="lbl">Access instantly</div><div class="val">One click, not five systems</div><div class="sub">stop copy-pasting data between platforms</div></div>
+        <div class="arch-cell"><div class="lbl">Audit-ready</div><div class="val">Always backed by data</div><div class="sub">every decision traceable, every metric current</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">8 / 16</div>
+</section>
+
+<!-- 8 — HOW IT WORKS -->
+<section class="slide" data-index="8">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Under the hood</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:20ch;">Access without <em class="accent">exposure</em>.</h2>
+      <div class="grid-2" data-reveal style="--d:160ms; margin-top:clamp(0.8rem,2vh,1.2rem);">
+        <div class="pipeline">
+          <div class="box"><div class="k">Sources</div><div class="v">Closed data sources</div></div>
+          <span class="arrow-sep">→</span>
+          <div class="box highlight"><div class="k">Layer</div><div class="v">Cocevo AI access layer</div></div>
+          <span class="arrow-sep">→</span>
+          <div class="box"><div class="k">Output</div><div class="v">Team dashboards</div></div>
+        </div>
+        <div class="explain">
+          <div class="card"><div class="card-title">Why an AI layer, not shared access</div><p>Teams query only their own sources, or sources explicitly opened to them. Cocevo's backend AI reads the closed sources and returns only what's compliant to share, never the raw data or the prompt behind it.</p></div>
+          <div class="card"><div class="card-title">Why this matters for compliance</div><p>Every team keeps its confidentiality boundary. No blanket access to another department's raw systems, just the answer they're allowed to see.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">9 / 16</div>
+</section>
+
+<!-- 9 — THE OFFER -->
+<section class="slide dark" data-index="9">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">The offer</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">You're a $10M financial company, not a <em class="accent">software</em> company.</h2>
+      <p data-reveal style="font-size:var(--h3-size); font-weight:700; margin:0 0 clamp(1rem,2.4vh,1.4rem) 0; --d:160ms;">Cut onboarding abandonment 20% in 3 months. Live in 3 weeks.</p>
+      <div class="compare" data-reveal style="--d:240ms;">
+        <div class="opt bad">
+          <h4>Option A: Build it yourself</h4>
+          <ul>
+            <li>12–18 months to ship</li>
+            <li>$500K–$1.2M in cost, $2.5M+ lost revenue while you wait</li>
+            <li>No guarantee it works</li>
+          </ul>
+        </div>
+        <div class="opt good">
+          <h4>Option B: Cocevo</h4>
+          <ul>
+            <li>Live in 3 weeks, recovering revenue by month 1</li>
+            <li>Built specifically for fragmented fintech onboarding</li>
+            <li>Your team stays focused on growth</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footnote" data-reveal style="--d:320ms;">No price shown here by design; full pricing comes up on a live demo.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">10 / 16</div>
+</section>
+
+<!-- 10 — PERSONA A -->
+<section class="slide" data-index="10">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="split-title">
+        <h3 data-reveal style="--d:0ms;">Sales loses commission on deals they <em class="accent">already</em> closed.</h3>
+        <span class="meta">02 · Buyer · Track A</span>
+      </div>
+      <div class="arch" data-reveal style="--d:120ms;">
+        <div class="arch-cell"><div class="lbl">Pain</div><div class="val">20–30% of closed deals abandon</div><div class="sub">during onboarding, after the commission was already earned</div></div>
+        <div class="arch-cell"><div class="lbl">Goal</div><div class="val">Protect commission &amp; credibility</div><div class="sub">customers stop trusting reps who can't answer "when do I start?"</div></div>
+        <div class="arch-cell"><div class="lbl">Decision power</div><div class="val">Influencer → ally</div><div class="sub">reps push up; CSO / VP Sales can be a real budget ally</div></div>
+      </div>
+      <div class="callout-strip" data-reveal style="--d:220ms;"><strong>Ad angle:</strong> loss aversion. "Stop losing deals you already won."</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo · Sales / CSO</div>
+  <div class="slide-index">11 / 16</div>
+</section>
+
+<!-- 11 — PERSONA B -->
+<section class="slide" data-index="11">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="split-title">
+        <h3 data-reveal style="--d:0ms;">Ops holds the budget, and lives the <em class="accent">chaos</em> daily.</h3>
+        <span class="meta">02 · Buyer · Track B</span>
+      </div>
+      <div class="arch" data-reveal style="--d:120ms;">
+        <div class="arch-cell"><div class="lbl">Pain</div><div class="val">50+ files, 5+ systems</div><div class="sub">3+ hrs/day just checking status across disconnected tools</div></div>
+        <div class="arch-cell"><div class="lbl">Goal</div><div class="val">Regain control, prove ROI</div><div class="sub">stop being the scapegoat for delays outside their control</div></div>
+        <div class="arch-cell"><div class="lbl">Decision power</div><div class="val">Usually the budget owner</div><div class="sub">COO / VP Ops can approve independently under ~$50–75K/year</div></div>
+      </div>
+      <div class="callout-strip" data-reveal style="--d:220ms;"><strong>Ad angle:</strong> relief and vindication. "Stop being blamed for a system you didn't build."</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo · Onboarding / Ops / COO</div>
+  <div class="slide-index">12 / 16</div>
+</section>
+
+<!-- 12 — WHY BOTH -->
+<section class="slide" style="background:var(--bg-mint);" data-index="12">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Go-to-market insight</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Sales creates the pressure. Ops holds the <em class="accent">budget</em>.</h2>
+      <p class="lede" data-reveal style="--d:150ms; max-width:70ch; margin-bottom:clamp(1rem,2.4vh,1.4rem);">A campaign that only reaches Sales builds urgency with no purchasing power. A campaign that only reaches Ops has no internal pull. Run both tracks in parallel.</p>
+      <div class="converge" data-reveal style="--d:230ms;">
+        <div class="paths">
+          <div class="path"><div class="who">Sales track</div><p>Pushes urgency up from below: commission loss makes it personal.</p></div>
+          <div class="path"><div class="who">Ops track</div><p>Controls the budget and lives the operational pain every day.</p></div>
+        </div>
+        <div class="arrow-down">↓</div>
+        <div class="result">Faster yes from the COO</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">13 / 16</div>
+</section>
+
+<!-- 13 — COCEVO FINDER (LEAD MAGNET) -->
+<section class="slide" data-index="13">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">The top-of-funnel offer</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">Cocevo Finder: let them feel the gain <em class="accent">firsthand</em>.</h2>
+      <p class="lede" data-reveal style="--d:150ms; margin-bottom:clamp(1rem,2.4vh,1.4rem);">A free local tool that previews Cocevo's core promise: search across your own scattered Excel and Word files from one place, in seconds.</p>
+      <div class="arch" data-reveal style="--d:230ms;">
+        <div class="arch-cell"><div class="lbl">What it does</div><div class="val">Search every file, instantly</div><div class="sub">point it at your Excel/Word folders for one search across all of them</div></div>
+        <div class="arch-cell"><div class="lbl">AI boost (optional)</div><div class="val">Bring your own API key</div><div class="sub">smarter formatting, categorization &amp; summaries, powered by the lead's own AI provider</div></div>
+        <div class="arch-cell"><div class="lbl">Privacy</div><div class="val">100% local by default</div><div class="sub">nothing leaves the machine unless the lead adds their own AI key</div></div>
+      </div>
+      <div class="callout-strip" data-reveal style="--d:300ms;"><strong>Funnel role:</strong> free download (work email required) → feel the time savings firsthand → request a full demo of the centralized, team-wide version.</div>
+      <div data-reveal style="margin-top:clamp(1rem,2.4vh,1.4rem); display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap; --d:370ms;">
+        <span class="cta-btn ghost" style="cursor:default;">Get Cocevo Finder free <span class="arrow">→</span></span>
+        <span class="badge-soon">Coming soon · in development</span>
+      </div>
+      <div class="footnote" data-reveal style="--d:440ms;">Target persona: Onboarding / Ops. Positioning only: Cocevo Finder is in development, not yet available for download.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo · Lead magnet</div>
+  <div class="slide-index">14 / 16</div>
+</section>
+
+<!-- 14 — RISK REVERSAL -->
+<section class="slide" data-index="14">
+  <div class="slide-content">
+    <div class="content-wrap">
+      <div class="eyebrow" data-reveal style="--d:0ms;">Removing the risk</div>
+      <h2 class="headline" data-reveal style="--d:80ms; max-width:22ch;">No client logos yet. So we carry the <em class="accent">risk</em> instead.</h2>
+      <div class="flow" data-reveal style="--d:160ms;">
+        <div class="flow-row"><span class="tag n1">Step 1</span><span class="arrow">→</span><span class="what">Start with a pilot on one team or workflow, not a company-wide rollout.</span><span class="who">Low commitment</span></div>
+        <div class="flow-row"><span class="tag n2">Step 2</span><span class="arrow">→</span><span class="what">If the agreed abandonment-reduction target isn't hit in 90 days, we keep optimizing at no extra cost until it is.</span><span class="who">Performance guarantee</span></div>
+      </div>
+      <div class="footnote" data-reveal style="--d:260ms;">Built for buyers who care more about execution risk than a refund: the guarantee is Cocevo putting in the work, not money back.</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">15 / 16</div>
+</section>
+
+<!-- 15 — CLOSING CTA -->
+<section class="slide dark" data-index="15">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="slide-content">
+    <div class="content-wrap" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:clamp(1rem,2.6vh,1.6rem);">
+      <div class="eyebrow" data-reveal style="--d:0ms; justify-content:center;">The ask</div>
+      <h2 class="headline" data-reveal style="--d:100ms; font-size:clamp(2rem,6vw,3.5rem); text-align:center;">Request a <em class="accent">demo</em>.</h2>
+      <p class="lede" data-reveal style="--d:220ms; text-align:center; margin:0 auto; max-width:54ch;">Every month of delay costs a company this size roughly $208K in lost revenue, and competitors are already moving.</p>
+      <button type="button" class="cta-btn" data-reveal style="--d:340ms;">Request a Demo <span class="arrow">→</span></button>
+      <div data-reveal style="--d:420ms; font-family:var(--font-mono); font-size:var(--small-size); color:var(--ink-muted);">Not ready yet? Start with <strong style="color:var(--ink);">Cocevo Finder</strong>: free, no sales call required.</div>
+      <div class="wordmark" data-reveal style="--d:500ms; font-size:clamp(1rem,2vw,1.4rem); margin-top:clamp(0.6rem,2vh,1.2rem);">Cocevo</div>
+    </div>
+  </div>
+  <div class="footer-meta">Cocevo</div>
+  <div class="slide-index">16 / 16</div>
+</section>
+
+</main>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dotsNav = document.getElementById('navDots');
+  var current = 0;
+
+  slides.forEach(function (slide, i) {
+    var btn = document.createElement('button');
+    btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    if (i === 0) btn.classList.add('active');
+    btn.addEventListener('click', function () { goTo(i); });
+    dotsNav.appendChild(btn);
+  });
+  var dots = Array.prototype.slice.call(dotsNav.children);
+
+  function setActive(i) {
+    current = i;
+    slides.forEach(function (s, idx) {
+      if (idx === i) s.classList.add('active');
+    });
+    dots.forEach(function (d, idx) { d.classList.toggle('active', idx === i); });
+  }
+
+  function goTo(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+        var idx = slides.indexOf(entry.target);
+        setActive(idx);
+      }
+    });
+  }, { threshold: [0.6] });
+  slides.forEach(function (s) { io.observe(s); });
+
+  setActive(0);
+  slides[0].classList.add('active');
+
+  document.addEventListener('keydown', function (e) {
+    var active = document.activeElement;
+    if (active && ['BUTTON', 'A', 'INPUT', 'TEXTAREA'].indexOf(active.tagName) !== -1) return;
+    if (['ArrowDown', 'PageDown', ' '].indexOf(e.key) !== -1) {
+      e.preventDefault(); goTo(current + 1);
+    } else if (['ArrowUp', 'PageUp'].indexOf(e.key) !== -1) {
+      e.preventDefault(); goTo(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); goTo(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); goTo(slides.length - 1);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

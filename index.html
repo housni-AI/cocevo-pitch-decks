@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cocevo — Pitch Decks</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: #0a1626;
+    padding: 2rem;
+  }
+  .wrap { max-width: 640px; width: 100%; }
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.01em;
+  }
+  p.lede { color: #5b6b7b; margin: 0 0 2rem 0; font-size: 1rem; line-height: 1.5; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  a.card {
+    display: block;
+    border: 1px solid #e6eaf0;
+    border-radius: 14px;
+    padding: 1.4rem;
+    text-decoration: none;
+    color: #0a1626;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  a.card:hover { border-color: #18cb96; transform: translateY(-2px); }
+  .tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0fa97b;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+    display: block;
+  }
+  .title { font-weight: 800; font-size: 1.1rem; margin-bottom: 0.3em; }
+  .sub { color: #5b6b7b; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Cocevo — Pitch Decks</h1>
+    <p class="lede">Choose a version to open.</p>
+    <div class="grid">
+      <a class="card" href="pitch-deck-en.html">
+        <span class="tag">EN · Fintech</span>
+        <div class="title">Fintech Onboarding</div>
+        <div class="sub">English, FinServ-specific</div>
+      </a>
+      <a class="card" href="pitch-deck-fr.html">
+        <span class="tag">FR · Fintech</span>
+        <div class="title">Onboarding Fintech</div>
+        <div class="sub">Français, spécifique FinServ</div>
+      </a>
+      <a class="card" href="pitch-deck-general-en.html">
+        <span class="tag">EN · General</span>
+        <div class="title">Cross-Industry</div>
+        <div class="sub">English, any industry</div>
+      </a>
+      <a class="card" href="pitch-deck-general-fr.html">
+        <span class="tag">FR · General</span>
+        <div class="title">Tous secteurs</div>
+        <div class="sub">Français, tous secteurs</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
